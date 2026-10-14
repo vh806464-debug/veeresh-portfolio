@@ -1,4 +1,4 @@
-/**
+﻿/**
  * VEERESH H. - PORTFOLIO INTERACTIVE SCRIPT
  * Handles Canvas Particle Simulation, Custom Cursor, Smooth Scrolling,
  * Intersection Observer Animations, Metric Counters, and CMS Hydration.
@@ -14,7 +14,7 @@ const INDEXED_DB_STORE = 'uploadedMedia';
 // Default initial state matching Veeresh H's portfolio requirements
 const DEFAULT_PORTFOLIO_DATA = {
   hero: {
-    badge: '✦ Available for Freelance & Creative Collaborations',
+    badge: 'âœ¦ Available for Freelance & Creative Collaborations',
     name: 'Veeresh H.',
     heading: 'AI Edits & Designs',
     subheading: 'Motion Graphic Designer',
@@ -105,9 +105,9 @@ const DEFAULT_PORTFOLIO_DATA = {
     phone: '8660641045',
     phoneFormatted: '+91 8660641045',
     whatsappUrl: 'https://wa.me/918660641045',
-    instagram: 'sumne_shokige',
-    instagramUrl: 'https://instagram.com/sumne_shokige',
-    copyright: '© 2024 Veeresh H. All Rights Reserved.'
+    instagram: 'sumne__shokige',
+    instagramUrl: 'https://instagram.com/sumne__shokige',
+    copyright: 'Â© 2024 Veeresh H. All Rights Reserved.'
   }
 };
 
@@ -832,7 +832,7 @@ function loadCustomUploads() {
           <div class="custom-media-info">
             <div class="custom-media-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div>
             <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">
-              ${(item.size / 1024 / 1024).toFixed(2)} MB • ${escapeHtml(item.type.split('/')[1] || 'media')}
+              ${(item.size / 1024 / 1024).toFixed(2)} MB â€¢ ${escapeHtml(item.type.split('/')[1] || 'media')}
             </div>
           </div>
         `;

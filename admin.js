@@ -1,4 +1,4 @@
-/**
+﻿/**
  * VEERESH H. - ADMIN STUDIO JAVASCRIPT
  * Full-featured CMS Controller: Password Gate, Content CRUD,
  * YouTube Video Parser, Unlimited IndexedDB File Manager, and JSON Export/Import.
@@ -19,7 +19,7 @@ const INDEXED_DB_STORE = 'uploadedMedia';
 // Default Data Blueprint
 const DEFAULT_PORTFOLIO_DATA = {
   hero: {
-    badge: '✦ Available for Freelance & Creative Collaborations',
+    badge: 'âœ¦ Available for Freelance & Creative Collaborations',
     name: 'Veeresh H.',
     heading: 'AI Edits & Designs',
     subheading: 'Motion Graphic Designer',
@@ -110,9 +110,9 @@ const DEFAULT_PORTFOLIO_DATA = {
     phone: '8660641045',
     phoneFormatted: '+91 8660641045',
     whatsappUrl: 'https://wa.me/918660641045',
-    instagram: 'sumne_shokige',
-    instagramUrl: 'https://instagram.com/sumne_shokige',
-    copyright: '© 2024 Veeresh H. All Rights Reserved.'
+    instagram: 'sumne__shokige',
+    instagramUrl: 'https://instagram.com/sumne__shokige',
+    copyright: 'Â© 2024 Veeresh H. All Rights Reserved.'
   }
 };
 
@@ -679,7 +679,7 @@ window.publishChangesToGitHub = async function () {
     });
 
     if (putRes.ok) {
-      showAdminToast('🚀 Published to GitHub! Vercel is now building and deploying your live site.', 'success');
+      showAdminToast('ðŸš€ Published to GitHub! Vercel is now building and deploying your live site.', 'success');
     } else {
       const errData = await putRes.json();
       throw new Error(errData.message || 'GitHub API error');
@@ -857,7 +857,7 @@ function loadUploadsGallery() {
         ${mediaHtml}
         <div class="upload-details">
           <div class="upload-filename" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div>
-          <div class="upload-meta">${sizeStr} • ${escapeHtml(item.type || 'file')}</div>
+          <div class="upload-meta">${sizeStr} â€¢ ${escapeHtml(item.type || 'file')}</div>
           <div class="upload-btn-group">
             <button class="btn-sm-action btn-secondary" onclick="copyDataUrl('${item.id}')">
               <i class="fa-regular fa-copy"></i> Copy
