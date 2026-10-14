@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veeresh H. | Motion Graphic Designer & AI Visual Artist</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Portfolio of Veeresh H. — Motion Graphic Designer, Video Editor, and AI Tool Specialist. Crafting cinematic motion designs, high-retention video edits, and cutting-edge AI visuals.">
+  <meta name="keywords" content="Veeresh H, Motion Graphic Designer, Video Editing, AI Visuals, After Effects, DaVinci Resolve, HeyGen, ElevenLabs, Claude, Higgsfield">
+  <meta name="author" content="Veeresh H.">
+  <meta property="og:title" content="Veeresh H. | Motion Graphic Designer & AI Artist">
+  <meta property="og:description" content="Cinematic motion design, high-impact video edits, and AI-accelerated visuals.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#07070a">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2307070a'/><path d='M25 30 L45 75 L55 75 L75 30 L62 30 L50 60 L38 30 Z' fill='%2300f0ff'/><path d='M65 48 L85 48 L85 58 L65 58 Z' fill='%239d4edd'/></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Noise Overlay for Cinematic Texture -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Preloader Screen -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <span class="logo-accent">V</span><span class="logo-accent-alt">H</span>
+      </div>
+      <div class="preloader-bar">
+        <div class="preloader-fill" id="preloaderFill"></div>
+      </div>
+      <div class="preloader-counter" id="preloaderCounter">0%</div>
+      <p class="preloader-subtext">Initializing Creative Engine...</p>
+    </div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Veeresh H Home">
+        <div class="brand-monogram">VH</div>
+        <div class="brand-details">
+          <span class="brand-name" id="cms-nav-name">VEERESH H.</span>
+          <span class="brand-tagline">MOTION & AI</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#hero" class="nav-link active"><span>01</span>Home</a></li>
+          <li class="nav-item"><a href="#services" class="nav-link"><span>02</span>Services</a></li>
+          <li class="nav-item"><a href="#works" class="nav-link"><span>03</span>Works</a></li>
+          <li class="nav-item"><a href="#process" class="nav-link"><span>04</span>Process</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link"><span>05</span>Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- CTA & Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-outline btn-sm nav-cta">Let's Talk</a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu-drawer" id="mobileDrawer">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div class="brand-monogram">VH</div>
+        <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="Close menu">&times;</button>
+      </div>
+      <ul class="drawer-list">
+        <li><a href="#hero" class="drawer-link"><span>01</span> Home</a></li>
+        <li><a href="#services" class="drawer-link"><span>02</span> Services</a></li>
+        <li><a href="#works" class="drawer-link"><span>03</span> Works</a></li>
+        <li><a href="#process" class="drawer-link"><span>04</span> Process</a></li>
+        <li><a href="#contact" class="drawer-link"><span>05</span> Contact</a></li>
+      </ul>
+      <div class="drawer-footer">
+        <p class="drawer-email" id="cms-drawer-email">vh806464@gmail.com</p>
+        <div class="drawer-socials">
+          <a href="https://wa.me/918660641045" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://instagram.com/sumne_shokige" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:vh806464@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <!-- Interactive Particle / Shape Canvas -->
+      <canvas id="heroCanvas" class="hero-canvas"></canvas>
+      
+      <!-- Dynamic Mouse-Following Gradient Spotlight -->
+      <div class="hero-mouse-glow" id="heroMouseGlow"></div>
+
+      <!-- Background Ambient Geometric Lights -->
+      <div class="ambient-glow glow-1"></div>
+      <div class="ambient-glow glow-2"></div>
+
+      <div class="container hero-container">
+        <!-- Floating Status Pill -->
+        <div class="hero-badge animate-fade-down">
+          <span class="status-indicator"></span>
+          <span id="cms-hero-badge">✦ Available for Freelance & Creative Collaborations</span>
+        </div>
+
+        <!-- Name & Roles -->
+        <div class="hero-intro animate-fade-down" style="animation-delay: 0.15s;">
+          <span class="hero-greeting">Hi, I'm</span>
+          <h2 class="hero-name" id="cms-hero-name">Veeresh H.</h2>
+        </div>
+
+        <!-- Big Cinematic Headline -->
+        <h1 class="hero-title animate-fade-up" style="animation-delay: 0.25s;">
+          <span class="text-gradient" id="cms-hero-heading">AI Edits & Designs</span>
+        </h1>
+
+        <!-- Subheading -->
+        <h3 class="hero-subtitle animate-fade-up" style="animation-delay: 0.35s;" id="cms-hero-subheading">
+          Motion Graphic Designer
+        </h3>
+
+        <!-- Description Pitch -->
+        <p class="hero-description animate-fade-up" style="animation-delay: 0.45s;" id="cms-hero-description">
+          Fusing cinematic motion graphics, pulse-pounding video edits, and state-of-the-art AI workflows to engineer visually unforgettable digital experiences.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-actions animate-fade-up" style="animation-delay: 0.55s;">
+          <a href="#works" class="btn btn-primary btn-glow">
+            <span>View Works</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn btn-glass">
+            <span>Contact Me</span>
+            <i class="fa-regular fa-paper-plane"></i>
+          </a>
+        </div>
+
+        <!-- Metric Counter Strip -->
+        <div class="hero-metrics animate-fade-up" style="animation-delay: 0.65s;">
+          <div class="metric-item">
+            <span class="metric-number" data-target="50">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">Projects Completed</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-number" data-target="100">0</span><span class="metric-plus">%</span>
+            <span class="metric-label">Client Satisfaction</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-number" data-target="7">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">AI Engines Mastered</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-number" data-target="4">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">Years of Craft</span>
+          </div>
+        </div>
+
+        <!-- Scroll Down Cue -->
+        <a href="#services" class="scroll-down-indicator" aria-label="Scroll to services">
+          <div class="mouse-icon">
+            <div class="wheel"></div>
+          </div>
+          <span>SCROLL DOWN</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">02 // CAPABILITIES</span>
+          <h2 class="section-title">Specialized <span class="text-gradient">Services</span></h2>
+          <p class="section-subtitle">
+            Blending deep artistic intuition with the speed and frontier intelligence of artificial intelligence to produce world-class creative output.
+          </p>
+        </div>
+
+        <div class="services-grid" id="servicesGrid">
+          <!-- Service Card 1: Motion Graphic Design -->
+          <div class="service-card reveal-card" data-service-id="1">
+            <div class="card-glow-layer"></div>
+            <div class="service-icon-box">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <div class="service-index">01</div>
+            <h3 class="service-title" id="cms-service-1-title">Motion Graphic Design</h3>
+            <p class="service-description" id="cms-service-1-desc">
+              High-impact 2D/3D kinetic motion graphics, title sequences, brand logo animations, and futuristic interface designs tailored for maximum visual retention.
+            </p>
+            <div class="tools-container">
+              <span class="tools-header">Core Toolset:</span>
+              <div class="tools-tags" id="cms-service-1-tools">
+                <span class="tool-tag ai-tag"><i class="fa-solid fa-microchip"></i> All AI Tools</span>
+                <span class="tool-tag"><i class="fa-solid fa-play"></i> After Effects</span>
+                <span class="tool-tag"><i class="fa-solid fa-sliders"></i> DaVinci Resolve</span>
+              </div>
+            </div>
+            <div class="card-footer-accent"></div>
+          </div>
+
+          <!-- Service Card 2: Video Editing -->
+          <div class="service-card reveal-card" data-service-id="2">
+            <div class="card-glow-layer"></div>
+            <div class="service-icon-box">
+              <i class="fa-solid fa-film"></i>
+            </div>
+            <div class="service-index">02</div>
+            <h3 class="service-title" id="cms-service-2-title">Video Editing</h3>
+            <p class="service-description" id="cms-service-2-desc">
+              Cinematic pacing, rhythm-driven cuts, audio design harmonization, and color grading that transforms raw footage into compelling, high-converting visual stories.
+            </p>
+            <div class="tools-container">
+              <span class="tools-header">Core Toolset:</span>
+              <div class="tools-tags" id="cms-service-2-tools">
+                <span class="tool-tag ai-tag"><i class="fa-solid fa-microchip"></i> All AI Tools</span>
+                <span class="tool-tag"><i class="fa-solid fa-scissors"></i> Premiere Pro</span>
+                <span class="tool-tag"><i class="fa-solid fa-clapperboard"></i> Final Cut Pro</span>
+              </div>
+            </div>
+            <div class="card-footer-accent"></div>
+          </div>
+
+          <!-- Service Card 3: Graphic Design -->
+          <div class="service-card reveal-card" data-service-id="3">
+            <div class="card-glow-layer"></div>
+            <div class="service-icon-box">
+              <i class="fa-solid fa-bezier-curve"></i>
+            </div>
+            <div class="service-index">03</div>
+            <h3 class="service-title" id="cms-service-3-title">Graphic Design</h3>
+            <p class="service-description" id="cms-service-3-desc">
+              Striking visual brand identities, digital posters, social media campaign creative kits, vector illustrations, and sleek UI mockups engineered with precision.
+            </p>
+            <div class="tools-container">
+              <span class="tools-header">Core Toolset:</span>
+              <div class="tools-tags" id="cms-service-3-tools">
+                <span class="tool-tag ai-tag"><i class="fa-solid fa-microchip"></i> All AI Tools</span>
+                <span class="tool-tag"><i class="fa-solid fa-pen-nib"></i> Adobe Illustrator</span>
+                <span class="tool-tag"><i class="fa-solid fa-image"></i> Photoshop</span>
+                <span class="tool-tag"><i class="fa-solid fa-book-open"></i> InDesign</span>
+                <span class="tool-tag"><i class="fa-solid fa-compass-drafting"></i> Affinity Designer</span>
+                <span class="tool-tag"><i class="fa-brands fa-figma"></i> Figma</span>
+              </div>
+            </div>
+            <div class="card-footer-accent"></div>
+          </div>
+
+          <!-- Service Card 4: AI Tool Handling -->
+          <div class="service-card reveal-card" data-service-id="4">
+            <div class="card-glow-layer"></div>
+            <div class="service-icon-box">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="service-index">04</div>
+            <h3 class="service-title" id="cms-service-4-title">AI Tool Handling</h3>
+            <p class="service-description" id="cms-service-4-desc">
+              Pioneering generative video synthesis, high-fidelity voice cloning, neural upscaling, and generative design pipelines that amplify production speed tenfold.
+            </p>
+            <div class="tools-container">
+              <span class="tools-header">Generative AI Stack:</span>
+              <div class="tools-tags" id="cms-service-4-tools">
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-robot"></i> Claude Design & Coding</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-code"></i> ChatGPT Codex</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-video"></i> Higgsfield</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-person"></i> HeyGen</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-waveform-lines"></i> ElevenLabs</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-sparkles"></i> Magnific AI</span>
+                <span class="tool-tag ai-spec"><i class="fa-solid fa-bolt"></i> VidRush</span>
+              </div>
+            </div>
+            <div class="card-footer-accent"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKS SECTION -->
+    <section class="section works-section" id="works">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">03 // SELECTED PORTFOLIO</span>
+          <h2 class="section-title">Featured <span class="text-gradient">Productions</span></h2>
+          <p class="section-subtitle">
+            A curated showcase of dynamic motion design pieces, vertical short-form reels, and cinematic edits.
+          </p>
+
+          <!-- Filter Navigation -->
+          <div class="works-filter-bar">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="shorts">Shorts (9:16)</button>
+            <button class="filter-btn" data-filter="cinematic">Cinematic (16:9)</button>
+          </div>
+        </div>
+
+        <!-- Responsive Works Grid Handling both 9:16 shorts and 16:9 videos -->
+        <div class="works-grid" id="worksGrid">
+          
+          <!-- Item 1: YouTube Short 1 (9:16) -->
+          <div class="work-item-wrapper filter-item shorts-item reveal" data-category="shorts">
+            <div class="work-card short-card">
+              <div class="aspect-container ratio-9-16">
+                <iframe 
+                  src="https://www.youtube.com/embed/t2kL22G4Z1g" 
+                  title="Veeresh H. Motion Reel Short 1" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-short"><i class="fa-solid fa-mobile-screen"></i> Vertical Short (9:16)</span>
+                  <span class="work-tag">Motion & AI</span>
+                </div>
+                <h4 class="work-title">Kinetic AI Motion Reel #1</h4>
+                <p class="work-desc">High-tempo dynamic motion graphics sequence with AI-assisted visual transitions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: YouTube Short 2 (9:16) -->
+          <div class="work-item-wrapper filter-item shorts-item reveal" data-category="shorts">
+            <div class="work-card short-card">
+              <div class="aspect-container ratio-9-16">
+                <iframe 
+                  src="https://www.youtube.com/embed/Pc0n1SQzsi0" 
+                  title="Veeresh H. Motion Reel Short 2" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-short"><i class="fa-solid fa-mobile-screen"></i> Vertical Short (9:16)</span>
+                  <span class="work-tag">Video Editing</span>
+                </div>
+                <h4 class="work-title">Visual Rhythm Edit #2</h4>
+                <p class="work-desc">Sound-synchronized visual edits, beat matching, and seamless speed ramping.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: YouTube Video 3 (16:9) -->
+          <div class="work-item-wrapper filter-item cinematic-item reveal" data-category="cinematic">
+            <div class="work-card standard-card">
+              <div class="aspect-container ratio-16-9">
+                <iframe 
+                  src="https://www.youtube.com/embed/vjitVW2mbmk" 
+                  title="Veeresh H. Cinematic Showcase 1" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-video"><i class="fa-solid fa-display"></i> Cinematic (16:9)</span>
+                  <span class="work-tag">Motion Design</span>
+                </div>
+                <h4 class="work-title">Commercial Brand Motion Sequence</h4>
+                <p class="work-desc">Full 16:9 motion design title package, atmospheric effects, and sound design.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4: YouTube Video 4 (16:9) -->
+          <div class="work-item-wrapper filter-item cinematic-item reveal" data-category="cinematic">
+            <div class="work-card standard-card">
+              <div class="aspect-container ratio-16-9">
+                <iframe 
+                  src="https://www.youtube.com/embed/4WeALTZICSw" 
+                  title="Veeresh H. Cinematic Showcase 2" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-video"><i class="fa-solid fa-display"></i> Cinematic (16:9)</span>
+                  <span class="work-tag">AI Visuals</span>
+                </div>
+                <h4 class="work-title">AI Powered Concept Film</h4>
+                <p class="work-desc">Exploration of neural video generation, generative typography, and precision pacing.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5: YouTube Video 5 (16:9) -->
+          <div class="work-item-wrapper filter-item cinematic-item reveal" data-category="cinematic">
+            <div class="work-card standard-card">
+              <div class="aspect-container ratio-16-9">
+                <iframe 
+                  src="https://www.youtube.com/embed/1UDdGg8cG2w" 
+                  title="Veeresh H. Cinematic Showcase 3" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-video"><i class="fa-solid fa-display"></i> Cinematic (16:9)</span>
+                  <span class="work-tag">Video Editing</span>
+                </div>
+                <h4 class="work-title">High-Retention Narrative Cut</h4>
+                <p class="work-desc">Color graded visual narrative cut with multi-layered audio scoring and motion titles.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6: YouTube Video 6 (16:9) -->
+          <div class="work-item-wrapper filter-item cinematic-item reveal" data-category="cinematic">
+            <div class="work-card standard-card">
+              <div class="aspect-container ratio-16-9">
+                <iframe 
+                  src="https://www.youtube.com/embed/wS95p0QDxzI" 
+                  title="Veeresh H. Cinematic Showcase 4" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="work-card-info">
+                <div class="work-meta">
+                  <span class="badge badge-video"><i class="fa-solid fa-display"></i> Cinematic (16:9)</span>
+                  <span class="work-tag">After Effects</span>
+                </div>
+                <h4 class="work-title">Futuristic Cybernetic Title Package</h4>
+                <p class="work-desc">Complex keyframe choreography, particle simulations, and 3D visual hierarchy.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Custom Uploaded Works Showcase (populated dynamically if user uploaded media in CMS) -->
+        <div class="custom-uploads-container" id="customUploadsSection" style="display: none;">
+          <div class="custom-uploads-header">
+            <span class="badge badge-short"><i class="fa-solid fa-cloud-arrow-up"></i> Custom Media Gallery</span>
+            <h3 class="custom-uploads-title">Direct Client Visuals & Uploads</h3>
+          </div>
+          <div class="custom-uploads-grid" id="customUploadsGrid"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CREATIVE PROCESS SECTION -->
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">04 // METHODOLOGY</span>
+          <h2 class="section-title">The Creative <span class="text-gradient">Workflow</span></h2>
+          <p class="section-subtitle">
+            How I turn abstract ideas into hyper-polished, cinema-grade deliverables.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step reveal-card">
+            <div class="step-number">01</div>
+            <div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3 class="step-title">Vision & Concept</h3>
+            <p class="step-desc">Deconstructing the brief, crafting storyboards, style frames, and defining the emotional arc of the motion piece.</p>
+          </div>
+
+          <div class="process-step reveal-card">
+            <div class="step-number">02</div>
+            <div class="step-icon"><i class="fa-solid fa-atom"></i></div>
+            <h3 class="step-title">AI Ideation & Assets</h3>
+            <p class="step-desc">Rapidly testing textures, AI character generation, voice synthesis, and generative video backdrops via HeyGen & Higgsfield.</p>
+          </div>
+
+          <div class="process-step reveal-card">
+            <div class="step-number">03</div>
+            <div class="step-icon"><i class="fa-solid fa-sliders"></i></div>
+            <h3 class="step-title">Motion & Precision Edit</h3>
+            <p class="step-desc">Keyframing curves in After Effects, seamless cuts in DaVinci & Premiere, speed ramping, and visual effects compositing.</p>
+          </div>
+
+          <div class="process-step reveal-card">
+            <div class="step-number">04</div>
+            <div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
+            <h3 class="step-title">Grading & Mastering</h3>
+            <p class="step-desc">Fine-tuning color profiles, master sound design integration, multi-format render exports (Shorts 9:16 & Wide 16:9).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">05 // REACH OUT</span>
+          <h2 class="section-title">Let's Create Something <span class="text-gradient">Extraordinary</span></h2>
+          <p class="section-subtitle">
+            Have a project in mind, need high-impact motion design, or looking to supercharge your edits with AI? Let's connect.
+          </p>
+        </div>
+
+        <div class="contact-wrapper">
+          <!-- Contact Channels / Cards -->
+          <div class="contact-cards-col reveal">
+            <!-- Direct Email Card -->
+            <a href="mailto:vh806464@gmail.com" class="contact-info-card" id="cms-contact-email-card">
+              <div class="card-icon-wrap email-icon">
+                <i class="fa-regular fa-envelope"></i>
+              </div>
+              <div class="card-text-wrap">
+                <span class="card-label">Direct Email</span>
+                <span class="card-value" id="cms-contact-email">vh806464@gmail.com</span>
+                <span class="card-action">Click to send email &rarr;</span>
+              </div>
+            </a>
+
+            <!-- WhatsApp Card -->
+            <a href="https://wa.me/918660641045" target="_blank" rel="noopener" class="contact-info-card" id="cms-contact-wa-card">
+              <div class="card-icon-wrap wa-icon">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div class="card-text-wrap">
+                <span class="card-label">WhatsApp Quick Chat</span>
+                <span class="card-value" id="cms-contact-phone">+91 8660641045</span>
+                <span class="card-action">Instant chat available &rarr;</span>
+              </div>
+            </a>
+
+            <!-- Instagram Card -->
+            <a href="https://instagram.com/sumne_shokige" target="_blank" rel="noopener" class="contact-info-card" id="cms-contact-ig-card">
+              <div class="card-icon-wrap ig-icon">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <div class="card-text-wrap">
+                <span class="card-label">Instagram Portfolio</span>
+                <span class="card-value" id="cms-contact-instagram">@sumne_shokige</span>
+                <span class="card-action">Follow & DM &rarr;</span>
+              </div>
+            </a>
+
+            <!-- Location & Availability Badge -->
+            <div class="availability-box">
+              <div class="pulse-dot"></div>
+              <div class="avail-text">
+                <strong>Current Status:</strong> Ready for new projects, remote roles, and motion design commissions worldwide.
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Contact Form -->
+          <div class="contact-form-col reveal">
+            <div class="contact-form-glass">
+              <h3 class="form-title">Send a Message</h3>
+              <p class="form-desc">Fill out the form below and I will get back to you within 24 hours.</p>
+
+              <form id="contactForm" class="portfolio-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="formName">Your Name</label>
+                    <input type="text" id="formName" name="name" placeholder="e.g. Alex Vance" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="formEmail">Your Email</label>
+                    <input type="email" id="formEmail" name="email" placeholder="alex@example.com" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="formSubject">Project Subject</label>
+                  <input type="text" id="formSubject" name="subject" placeholder="e.g. Motion Graphics for Brand Launch" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="formMessage">Project Details & Goals</label>
+                  <textarea id="formMessage" name="message" rows="5" placeholder="Tell me about your timeline, deliverables, and vision..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="formSubmitBtn">
+                  <span>Send Message</span>
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+                <div class="form-status" id="formStatus"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-monogram">VH</div>
+          <div>
+            <h3 class="footer-name">Veeresh H.</h3>
+            <p class="footer-sub">Motion Graphic Designer & AI Artist</p>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="footer-social-links">
+          <a href="https://wa.me/918660641045" target="_blank" rel="noopener" class="social-circle" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <a href="https://instagram.com/sumne_shokige" target="_blank" rel="noopener" class="social-circle" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="mailto:vh806464@gmail.com" class="social-circle" aria-label="Email">
+            <i class="fa-regular fa-envelope"></i>
+          </a>
+          <a href="https://youtube.com/@sumne_shokige" target="_blank" rel="noopener" class="social-circle" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text" id="cms-footer-copyright">
+          &copy; 2024 Veeresh H. All Rights Reserved.
+        </p>
+
+        <div class="footer-utility-links">
+          <a href="#hero" class="back-to-top-link">
+            <span>Back to top</span>
+            <i class="fa-solid fa-arrow-up"></i>
+          </a>
+          <!-- Subtle Admin Panel Link -->
+          <a href="admin.html" class="admin-link" title="Open Content Management Dashboard (Press Ctrl+Alt+A)">
+            <i class="fa-solid fa-lock"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

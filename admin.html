@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Studio | Veeresh H. Portfolio CMS</title>
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Admin Stylesheet -->
+  <style>
+    :root {
+      --bg-dark: #07070a;
+      --bg-surface: #0f0f17;
+      --bg-card: rgba(18, 18, 28, 0.85);
+      --bg-card-hover: rgba(26, 26, 42, 0.95);
+      --accent-cyan: #00f0ff;
+      --accent-purple: #9d4edd;
+      --accent-magenta: #ff007f;
+      --accent-green: #00ffaa;
+      --text-pure: #ffffff;
+      --text-primary: #f0f3f8;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --gradient-primary: linear-gradient(135deg, #00f0ff 0%, #9d4edd 55%, #ff007f 100%);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #222235; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+
+    /* Noise Texture */
+    .noise-layer {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* PASSWORD GATE MODAL */
+    .auth-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 5, 8, 0.94);
+      backdrop-filter: blur(20px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .auth-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .auth-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .auth-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(157, 78, 221, 0.15));
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+    }
+
+    .auth-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-pure);
+    }
+
+    .auth-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .auth-input-wrap {
+      position: relative;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .auth-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+    }
+
+    .auth-btn {
+      padding: 1rem;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 240, 255, 0.4);
+    }
+
+    .auth-hint {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* TOP NAVBAR */
+    .admin-navbar {
+      height: 72px;
+      background: rgba(10, 10, 16, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+    }
+
+    .admin-logo {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.15rem;
+    }
+
+    .admin-title-wrap h1 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-pure);
+    }
+
+    .admin-title-wrap span {
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .admin-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-header {
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-header-primary {
+      background: rgba(0, 240, 255, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+
+    .btn-header-primary:hover {
+      background: var(--accent-cyan);
+      color: #07070a;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-header-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-glass);
+    }
+
+    .btn-header-ghost:hover {
+      color: #ff4757;
+      border-color: #ff4757;
+    }
+
+    /* MAIN LAYOUT */
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    /* SIDEBAR */
+    .admin-sidebar {
+      width: 260px;
+      background: #090910;
+      border-right: 1px solid var(--border-subtle);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .sidebar-btn {
+      width: 100%;
+      padding: 0.85rem 1.15rem;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-btn i {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .sidebar-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-pure);
+    }
+
+    .sidebar-btn:hover i {
+      color: var(--accent-cyan);
+    }
+
+    .sidebar-btn.active {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(157, 78, 221, 0.12));
+      color: #fff;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+
+    .sidebar-btn.active i {
+      color: var(--accent-cyan);
+    }
+
+    /* CONTENT PANELS */
+    .admin-content {
+      flex: 1;
+      padding: 2.5rem 3rem;
+      overflow-y: auto;
+      max-width: 1280px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .panel-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      color: var(--text-pure);
+    }
+
+    .panel-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* CARDS & FORMS */
+    .cms-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .cms-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .cms-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--text-pure);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .cms-card-title i {
+      color: var(--accent-cyan);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-grid-full {
+      grid-column: span 2;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-field label {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.15rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: #fff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.2);
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-save {
+      background: var(--gradient-primary);
+      color: #fff;
+    }
+
+    .btn-save:hover {
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent-cyan);
+    }
+
+    .btn-danger {
+      background: rgba(255, 71, 87, 0.15);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      color: #ff4757;
+    }
+
+    .btn-danger:hover {
+      background: #ff4757;
+      color: #fff;
+    }
+
+    /* WORKS MANAGEMENT SECTION */
+    .works-mgmt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .work-mgmt-card {
+      background: rgba(14, 14, 22, 0.9);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .work-mgmt-preview {
+      width: 100%;
+      height: 180px;
+      background: #000;
+      position: relative;
+    }
+
+    .work-mgmt-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .work-mgmt-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .work-mgmt-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .work-mgmt-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .work-mgmt-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .btn-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover:not(:disabled) {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .btn-icon:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .edit-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 5, 8, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .edit-modal-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .edit-modal-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 240, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .cloud-guide-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .cloud-guide-card:hover {
+      border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .cloud-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cloud-badge.free { background: rgba(0, 255, 170, 0.15); color: #00ffaa; border: 1px solid rgba(0, 255, 170, 0.3); }
+    .cloud-badge.pro { background: rgba(0, 240, 255, 0.15); color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.3); }
+
+
+    /* UPLOADS DROPZONE & GALLERY */
+    .dropzone-container {
+      border: 2px dashed rgba(0, 240, 255, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: rgba(0, 240, 255, 0.02);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dropzone-container:hover, .dropzone-container.dragover {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+    }
+
+    .dropzone-icon {
+      font-size: 3.5rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .dropzone-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .dropzone-sub {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .dropzone-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      background: rgba(0, 255, 170, 0.15);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      color: var(--accent-green);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .uploads-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .upload-item-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .upload-thumb {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-details {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .upload-filename {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.25rem;
+    }
+
+    .upload-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .upload-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .btn-sm-action {
+      flex: 1;
+      padding: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+
+    /* TOASTS */
+    .toast-box {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      pointer-events: none;
+    }
+
+    .admin-toast {
+      background: #141424;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.4rem;
+      color: #fff;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      pointer-events: auto;
+      animation: toastSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .admin-toast.success { border-left: 4px solid var(--accent-green); }
+    .admin-toast.error { border-left: 4px solid #ff4757; }
+    .admin-toast.info { border-left: 4px solid var(--accent-cyan); }
+
+    @keyframes toastSlide {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 1rem; }
+      .sidebar-menu { flex-direction: row; overflow-x: auto; padding-bottom: 0.5rem; }
+      .sidebar-btn { white-space: nowrap; }
+      .admin-content { padding: 1.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid-full { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="noise-layer"></div>
+
+  <!-- PASSWORD GATE OVERLAY -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card">
+      <div class="auth-icon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <h2 class="auth-title">Veeresh H. Studio</h2>
+      <p class="auth-desc">Enter admin security password to access content management.</p>
+
+      <form class="auth-form" id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="auth-input-wrap">
+          <input type="password" id="adminPasswordInput" class="auth-input" placeholder="Enter password..." autofocus required>
+        </div>
+        <button type="submit" class="auth-btn">
+          <i class="fa-solid fa-lock-open"></i> Unlock Dashboard
+        </button>
+      </form>
+      <p class="auth-hint">Default password: <code>veeresh2024</code></p>
+    </div>
+  </div>
+
+  <!-- TOP HEADER -->
+  <header class="admin-navbar">
+    <a href="index.html" class="admin-brand">
+      <div class="admin-logo">VH</div>
+      <div class="admin-title-wrap">
+        <h1>Veeresh H. CMS</h1>
+        <span>Admin Control Center</span>
+      </div>
+    </a>
+
+    <div class="admin-nav-actions">
+      <a href="index.html" class="btn-header btn-header-primary" target="_blank">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+      </a>
+      <button class="btn-header btn-header-ghost" onclick="handleLogout()">
+        <i class="fa-solid fa-power-off"></i> Lock
+      </button>
+    </div>
+  </header>
+
+  <!-- DASHBOARD LAYOUT -->
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <ul class="sidebar-menu">
+        <li>
+          <button class="sidebar-btn active" data-tab="overview">
+            <i class="fa-solid fa-chart-pie"></i> Overview
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="hero">
+            <i class="fa-solid fa-sparkles"></i> Hero & Identity
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="services">
+            <i class="fa-solid fa-layer-group"></i> Services (4)
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="works">
+            <i class="fa-brands fa-youtube"></i> Works & Videos
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="uploads">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Uploads & Media
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="contact">
+            <i class="fa-solid fa-address-book"></i> Contact & Social
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-btn" data-tab="settings">
+            <i class="fa-solid fa-gear"></i> Backup & Password
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT PANELS -->
+    <main class="admin-content">
+
+      <!-- TAB 1: OVERVIEW -->
+      <section class="tab-panel active" id="tab-overview">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Studio Dashboard</h2>
+            <p class="panel-subtitle">Welcome back, Veeresh. Manage all content, videos, and media assets in real time.</p>
+          </div>
+          <button class="btn-action btn-save" onclick="saveAllChanges()">
+            <i class="fa-solid fa-floppy-disk"></i> Quick Save All
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="cms-card" style="margin-bottom: 0;">
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Live Works</div>
+            <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-heading); color: var(--accent-cyan);" id="statWorksCount">6</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Active video embeds</div>
+          </div>
+          <div class="cms-card" style="margin-bottom: 0;">
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Uploaded Files</div>
+            <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-heading); color: var(--accent-purple);" id="statUploadsCount">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Stored locally (No Limit)</div>
+          </div>
+          <div class="cms-card" style="margin-bottom: 0;">
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Core Services</div>
+            <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-heading); color: var(--accent-green);">4</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Motion, Video, Graphic, AI</div>
+          </div>
+        </div>
+
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-bolt"></i> Quick Jump & Actions</h3>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Changes made in this admin studio automatically update the live portfolio via client-side storage without requiring a server backend.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button class="btn-action btn-secondary" onclick="switchTab('works')">
+              <i class="fa-solid fa-plus"></i> Add New Video Work
+            </button>
+            <button class="btn-action btn-secondary" onclick="switchTab('uploads')">
+              <i class="fa-solid fa-upload"></i> Upload Images / Videos
+            </button>
+            <button class="btn-action btn-secondary" onclick="exportJSONBackup()">
+              <i class="fa-solid fa-download"></i> Download Backup JSON
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: HERO & IDENTITY -->
+      <section class="tab-panel" id="tab-hero">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Hero Section & Identity</h2>
+            <p class="panel-subtitle">Update your headline, name, sub-role, and pitch statement.</p>
+          </div>
+          <button class="btn-action btn-save" onclick="saveHeroSection()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Hero Changes
+          </button>
+        </div>
+
+        <div class="cms-card">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="adminName">Display Name</label>
+              <input type="text" id="adminName" placeholder="Veeresh H.">
+            </div>
+
+            <div class="form-field">
+              <label for="adminHeroBadge">Status Badge Text</label>
+              <input type="text" id="adminHeroBadge" placeholder="✦ Available for Freelance & Creative Collaborations">
+            </div>
+
+            <div class="form-field">
+              <label for="adminHeading">Main Headline (Gradient Text)</label>
+              <input type="text" id="adminHeading" placeholder="AI Edits & Designs">
+            </div>
+
+            <div class="form-field">
+              <label for="adminSubheading">Subheading / Role Title</label>
+              <input type="text" id="adminSubheading" placeholder="Motion Graphic Designer">
+            </div>
+
+            <div class="form-field form-grid-full">
+              <label for="adminDescription">Bio / Pitch Statement</label>
+              <textarea id="adminDescription" rows="4" placeholder="Fusing cinematic motion graphics..."></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: SERVICES -->
+      <section class="tab-panel" id="tab-services">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Services & Toolsets</h2>
+            <p class="panel-subtitle">Edit the 4 core capability cards, descriptions, and tool listings.</p>
+          </div>
+          <button class="btn-action btn-save" onclick="saveServicesSection()">
+            <i class="fa-solid fa-floppy-disk"></i> Save All Services
+          </button>
+        </div>
+
+        <!-- Service 1 -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Service 01: Motion Graphic Design</h3>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="service1Title">Service Title</label>
+              <input type="text" id="service1Title">
+            </div>
+            <div class="form-field">
+              <label for="service1Tools">Tools (comma separated)</label>
+              <input type="text" id="service1Tools" placeholder="All AI Tools (AI Tool Handling), After Effects, DaVinci Resolve">
+            </div>
+            <div class="form-field form-grid-full">
+              <label for="service1Desc">Description</label>
+              <textarea id="service1Desc" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-film"></i> Service 02: Video Editing</h3>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="service2Title">Service Title</label>
+              <input type="text" id="service2Title">
+            </div>
+            <div class="form-field">
+              <label for="service2Tools">Tools (comma separated)</label>
+              <input type="text" id="service2Tools" placeholder="All AI Tools (AI Tool Handling), Premiere Pro, Final Cut Pro">
+            </div>
+            <div class="form-field form-grid-full">
+              <label for="service2Desc">Description</label>
+              <textarea id="service2Desc" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-bezier-curve"></i> Service 03: Graphic Design</h3>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="service3Title">Service Title</label>
+              <input type="text" id="service3Title">
+            </div>
+            <div class="form-field">
+              <label for="service3Tools">Tools (comma separated)</label>
+              <input type="text" id="service3Tools" placeholder="All AI Tools (AI Tool Handling), Adobe Illustrator, Photoshop, InDesign, Affinity Designer, Figma">
+            </div>
+            <div class="form-field form-grid-full">
+              <label for="service3Desc">Description</label>
+              <textarea id="service3Desc" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-brain"></i> Service 04: AI Tool Handling</h3>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="service4Title">Service Title</label>
+              <input type="text" id="service4Title">
+            </div>
+            <div class="form-field">
+              <label for="service4Tools">AI Tools Stack (comma separated)</label>
+              <input type="text" id="service4Tools" placeholder="Claude Design & Coding, ChatGPT Codex, Higgsfield, HeyGen, ElevenLabs, Magnific AI, VidRush">
+            </div>
+            <div class="form-field form-grid-full">
+              <label for="service4Desc">Description</label>
+              <textarea id="service4Desc" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: WORKS & VIDEOS -->
+      <section class="tab-panel" id="tab-works">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Works & Video Management</h2>
+            <p class="panel-subtitle">Add, edit, and organize YouTube video links and vertical shorts.</p>
+          </div>
+        </div>
+
+        <!-- Add Work Card -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-circle-plus"></i> Add New Portfolio Production</h3>
+          </div>
+
+          <form id="addWorkForm" onsubmit="handleAddWork(event)">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="newWorkTitle">Project Title *</label>
+                <input type="text" id="newWorkTitle" placeholder="e.g. Cyberpunk Kinetic Title Reel" required>
+              </div>
+
+              <div class="form-field">
+                <label for="newWorkTag">Category Tag *</label>
+                <input type="text" id="newWorkTag" placeholder="e.g. Motion Design, Video Editing, AI Visuals, Graphic Design" required>
+              </div>
+
+              <div class="form-field">
+                <label for="newWorkMediaFormat">Media Format *</label>
+                <select id="newWorkMediaFormat" onchange="handleMediaFormatChange(this.value)" required>
+                  <option value="youtube" selected>YouTube Video / Shorts (Auto Embed)</option>
+                  <option value="vimeo">Vimeo Video</option>
+                  <option value="video">Direct Video File (MP4, WebM)</option>
+                  <option value="image">High-Res Image / Graphic Artwork</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="newWorkType">Aspect Ratio / Layout *</label>
+                <select id="newWorkType" required>
+                  <option value="shorts">Vertical Short (9:16)</option>
+                  <option value="cinematic" selected>Cinematic Widescreen (16:9)</option>
+                </select>
+              </div>
+
+              <div class="form-field form-grid-full">
+                <label for="newWorkUrl" id="workUrlLabel">Media URL / Embed Link *</label>
+                <input type="text" id="newWorkUrl" placeholder="https://youtube.com/shorts/... or https://youtu.be/... or https://res.cloudinary.com/..." required>
+              </div>
+
+              <div class="form-field form-grid-full">
+                <label for="newWorkThumbnail">Poster / Custom Thumbnail URL (Optional)</label>
+                <input type="text" id="newWorkThumbnail" placeholder="https://... (Poster image for direct videos or preview thumbnail)">
+              </div>
+
+              <div class="form-field form-grid-full">
+                <label for="newWorkDesc">Project Description</label>
+                <textarea id="newWorkDesc" rows="2" placeholder="Brief summary of techniques, motion graphics software, AI prompts, and creative direction..."></textarea>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn-action btn-save">
+                <i class="fa-solid fa-plus"></i> Add Project to Portfolio
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Existing Works List -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-list-check"></i> Active Works (<span id="activeWorksCount">6</span>)</h3>
+          </div>
+
+          <div class="works-mgmt-grid" id="adminWorksList"></div>
+        </div>
+      </section>
+
+      <!-- TAB 5: UPLOADS & MEDIA (NO LIMIT) -->
+      <section class="tab-panel" id="tab-uploads">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Uploads & Storage Center</h2>
+            <p class="panel-subtitle">Manage client media storage and configure external cloud providers for production hosting.</p>
+          </div>
+          <button class="btn-action btn-danger" onclick="clearAllUploads()">
+            <i class="fa-solid fa-trash-can"></i> Clear Local Files
+          </button>
+        </div>
+
+        <!-- Cloud Storage & Hosting Architecture Guide -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-server"></i> External Cloud Media Hosting Architecture</h3>
+            <span class="cloud-badge free">Production Standard</span>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            When your website is published on <strong>Vercel</strong> or <strong>Netlify</strong>, serverless edge hosting is read-only. Media must be stored on dedicated cloud CDN storage rather than local web server files. Here is the recommended zero-cost setup:
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+            <div class="cloud-guide-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #fff;"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube / Shorts</strong>
+                <span class="cloud-badge free">100% Free</span>
+              </div>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">
+                <strong>Limits:</strong> Infinite video uploads, 4K 60fps & HDR.<br>
+                <strong>Cost:</strong> $0 forever. Best for motion reels, vertical Shorts, and client work. Zero bandwidth fees.
+              </p>
+            </div>
+
+            <div class="cloud-guide-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #fff;"><i class="fa-solid fa-cloud" style="color: var(--accent-cyan);"></i> Cloudinary</strong>
+                <span class="cloud-badge free">25 GB Free/Mo</span>
+              </div>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">
+                <strong>Limits:</strong> 25 Monthly Credits (~25 GB managed storage or 25 GB bandwidth).<br>
+                <strong>Cost:</strong> $0 on Free Tier. Direct MP4/WebM streaming with auto-transcoding and thumbnail generation.
+              </p>
+            </div>
+
+            <div class="cloud-guide-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #fff;"><i class="fa-solid fa-database" style="color: var(--accent-green);"></i> Supabase Storage</strong>
+                <span class="cloud-badge free">1 GB Free</span>
+              </div>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">
+                <strong>Limits:</strong> 1 GB file storage, 2 GB monthly egress.<br>
+                <strong>Cost:</strong> $0 on Free Tier. S3-compatible cloud storage with public HTTPS URLs.
+              </p>
+            </div>
+
+            <div class="cloud-guide-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #fff;"><i class="fa-solid fa-image" style="color: var(--accent-purple);"></i> ImgBB / PostImages</strong>
+                <span class="cloud-badge free">Unlimited</span>
+              </div>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">
+                <strong>Limits:</strong> Up to 32MB per image.<br>
+                <strong>Cost:</strong> $0. Best for static design assets, styleframes, UI mockups, and poster thumbnails.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dropzone -->
+        <div class="dropzone-container" id="dropzone" onclick="document.getElementById('fileInput').click()">
+          <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display: none;" onchange="handleFileSelect(event)">
+          <div class="dropzone-icon">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+          <h3 class="dropzone-title">Drag & Drop Files Here, or Click to Browse</h3>
+          <p class="dropzone-sub">Supports MP4, WebM, PNG, JPG, GIF, WebP & SVG files.</p>
+          <span class="dropzone-badge"><i class="fa-solid fa-infinity"></i> Unlimited Quantity & Infinite Storage Enabled</span>
+        </div>
+
+        <!-- Gallery of Uploaded Files -->
+        <div class="cms-card" style="margin-top: 2rem;">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-photo-film"></i> Uploaded Assets Library</h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="uploadsSizeSummary">0 Files Stored</span>
+          </div>
+
+          <div class="uploads-gallery-grid" id="uploadsGallery"></div>
+        </div>
+      </section>
+
+      <!-- TAB 6: CONTACT & SOCIALS -->
+      <section class="tab-panel" id="tab-contact">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Contact & Social Channels</h2>
+            <p class="panel-subtitle">Configure email address, WhatsApp number, Instagram handle, and copyright info.</p>
+          </div>
+          <button class="btn-action btn-save" onclick="saveContactSection()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Contact Info
+          </button>
+        </div>
+
+        <div class="cms-card">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="adminEmail">Direct Email Address</label>
+              <input type="email" id="adminEmail" placeholder="vh806464@gmail.com">
+            </div>
+
+            <div class="form-field">
+              <label for="adminPhone">WhatsApp / Phone Number</label>
+              <input type="text" id="adminPhone" placeholder="8660641045">
+            </div>
+
+            <div class="form-field">
+              <label for="adminInstagram">Instagram Handle</label>
+              <input type="text" id="adminInstagram" placeholder="sumne_shokige">
+            </div>
+
+            <div class="form-field">
+              <label for="adminCopyright">Footer Copyright Text</label>
+              <input type="text" id="adminCopyright" placeholder="© 2024 Veeresh H. All Rights Reserved.">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: SETTINGS, BACKUP & PASSWORD -->
+      <section class="tab-panel" id="tab-settings">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">System, Password & Backup</h2>
+            <p class="panel-subtitle">Export/Import full portfolio configurations and update your admin password.</p>
+          </div>
+        </div>
+
+        <!-- Password Change Card -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-key"></i> Change Admin Password</h3>
+          </div>
+          <form onsubmit="handleChangePassword(event)" style="max-width: 480px;">
+            <div class="form-field" style="margin-bottom: 1rem;">
+              <label for="newAdminPass">New Admin Password</label>
+              <input type="password" id="newAdminPass" placeholder="Enter new password..." required>
+            </div>
+            <button type="submit" class="btn-action btn-secondary">
+              <i class="fa-solid fa-lock"></i> Update Password
+            </button>
+          </form>
+        </div>
+
+        <!-- Live GitHub & Vercel Publishing Card -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-cloud-arrow-up"></i> Live Website Deployment (GitHub & Vercel)</h3>
+            <span class="cloud-badge pro">Live Continuous Sync</span>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            Publish content changes directly to your live website. Entering a GitHub Personal Access Token allows the CMS to commit updated portfolio data directly to your repository, which automatically triggers a live Vercel rebuild within ~15-20 seconds.
+          </p>
+          <div class="form-grid" style="margin-bottom: 1.25rem;">
+            <div class="form-field">
+              <label for="ghRepoInput">GitHub Repository (owner/repo)</label>
+              <input type="text" id="ghRepoInput" placeholder="e.g. your-github-username/veeresh-portfolio">
+            </div>
+            <div class="form-field">
+              <label for="ghTokenInput">GitHub Personal Access Token (classic with 'repo' scope)</label>
+              <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button class="btn-action btn-save" id="btnPublishGithub" onclick="publishChangesToGitHub()">
+              <i class="fa-solid fa-rocket"></i> Publish All Changes to Live Website
+            </button>
+            <button class="btn-action btn-secondary" onclick="downloadPortfolioDataJson()">
+              <i class="fa-solid fa-download"></i> Download Latest portfolio-data.json
+            </button>
+          </div>
+        </div>
+
+        <!-- Export & Import Card -->
+        <div class="cms-card">
+          <div class="cms-card-header">
+            <h3 class="cms-card-title"><i class="fa-solid fa-file-export"></i> JSON Data Backup & Restore</h3>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Export the complete website structure, custom works, and configuration into a portable JSON file. You can restore it anytime or migrate between browsers.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button class="btn-action btn-secondary" onclick="exportJSONBackup()">
+              <i class="fa-solid fa-file-arrow-down"></i> Export Settings JSON
+            </button>
+            <button class="btn-action btn-secondary" onclick="document.getElementById('importFileInput').click()">
+              <i class="fa-solid fa-file-arrow-up"></i> Import Settings JSON
+            </button>
+            <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="handleImportJSON(event)">
+            <button class="btn-action btn-danger" onclick="resetToFactoryDefaults()">
+              <i class="fa-solid fa-rotate-left"></i> Reset to Defaults
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- EDIT PROJECT MODAL -->
+  <div class="edit-modal-overlay hidden" id="editModalOverlay">
+    <div class="edit-modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <h3 style="font-size: 1.25rem; font-family: var(--font-heading); color: #fff;">
+          <i class="fa-solid fa-pen-to-square" style="color: var(--accent-cyan);"></i> Edit Portfolio Project
+        </h3>
+        <button class="btn-icon" onclick="closeEditModal()" style="border: none; background: transparent; font-size: 1.2rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <form id="editWorkForm" onsubmit="handleSaveEditWork(event)">
+        <input type="hidden" id="editWorkId">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="editWorkTitle">Project Title *</label>
+            <input type="text" id="editWorkTitle" required>
+          </div>
+
+          <div class="form-field">
+            <label for="editWorkTag">Category Tag *</label>
+            <input type="text" id="editWorkTag" required>
+          </div>
+
+          <div class="form-field">
+            <label for="editWorkMediaFormat">Media Format *</label>
+            <select id="editWorkMediaFormat" required>
+              <option value="youtube">YouTube Video / Shorts (Auto Embed)</option>
+              <option value="vimeo">Vimeo Video</option>
+              <option value="video">Direct Video File (MP4, WebM)</option>
+              <option value="image">High-Res Image / Graphic Artwork</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="editWorkType">Aspect Ratio / Layout *</label>
+            <select id="editWorkType" required>
+              <option value="shorts">Vertical Short (9:16)</option>
+              <option value="cinematic">Cinematic Widescreen (16:9)</option>
+            </select>
+          </div>
+
+          <div class="form-field form-grid-full">
+            <label for="editWorkUrl">Media URL / Embed Link *</label>
+            <input type="text" id="editWorkUrl" required>
+          </div>
+
+          <div class="form-field form-grid-full">
+            <label for="editWorkThumbnail">Poster / Custom Thumbnail URL (Optional)</label>
+            <input type="text" id="editWorkThumbnail">
+          </div>
+
+          <div class="form-field form-grid-full">
+            <label for="editWorkDesc">Project Description</label>
+            <textarea id="editWorkDesc" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn-action btn-secondary" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn-action btn-save">
+            <i class="fa-solid fa-check"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-box" id="adminToastBox"></div>
+
+  <!-- Admin JavaScript -->
+  <script src="admin.js"></script>
+</body>
+</html>

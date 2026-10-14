@@ -1,0 +1,127 @@
+{
+  "hero": {
+    "badge": "✦ Available for Freelance & Creative Collaborations",
+    "name": "Veeresh H.",
+    "heading": "AI Edits & Designs",
+    "subheading": "Motion Graphic Designer",
+    "description": "Fusing cinematic motion graphics, pulse-pounding video edits, and state-of-the-art AI workflows to engineer visually unforgettable digital experiences."
+  },
+  "services": [
+    {
+      "id": 1,
+      "title": "Motion Graphic Design",
+      "desc": "High-impact 2D/3D kinetic motion graphics, title sequences, brand logo animations, and futuristic interface designs tailored for maximum visual retention.",
+      "tools": [
+        "All AI Tools (AI Tool Handling)",
+        "After Effects",
+        "DaVinci Resolve"
+      ],
+      "icon": "fa-solid fa-wand-magic-sparkles"
+    },
+    {
+      "id": 2,
+      "title": "Video Editing",
+      "desc": "Cinematic pacing, rhythm-driven cuts, audio design harmonization, and color grading that transforms raw footage into compelling, high-converting visual stories.",
+      "tools": [
+        "All AI Tools (AI Tool Handling)",
+        "Premiere Pro",
+        "Final Cut Pro"
+      ],
+      "icon": "fa-solid fa-film"
+    },
+    {
+      "id": 3,
+      "title": "Graphic Design",
+      "desc": "Striking visual brand identities, digital posters, social media campaign creative kits, vector illustrations, and sleek UI mockups engineered with precision.",
+      "tools": [
+        "All AI Tools (AI Tool Handling)",
+        "Adobe Illustrator",
+        "Photoshop",
+        "InDesign",
+        "Affinity Designer",
+        "Figma"
+      ],
+      "icon": "fa-solid fa-bezier-curve"
+    },
+    {
+      "id": 4,
+      "title": "AI Tool Handling",
+      "desc": "Pioneering generative video synthesis, high-fidelity voice cloning, neural upscaling, and generative design pipelines that amplify production speed tenfold.",
+      "tools": [
+        "Claude Design & Coding",
+        "ChatGPT Codex",
+        "Higgsfield",
+        "HeyGen",
+        "ElevenLabs",
+        "Magnific AI",
+        "VidRush"
+      ],
+      "icon": "fa-solid fa-brain"
+    }
+  ],
+  "works": [
+    {
+      "id": "work-1",
+      "title": "Kinetic AI Motion Reel #1",
+      "desc": "High-tempo dynamic motion graphics sequence with AI-assisted visual transitions.",
+      "url": "https://www.youtube.com/embed/t2kL22G4Z1g",
+      "type": "shorts",
+      "mediaFormat": "youtube",
+      "tag": "Motion & AI"
+    },
+    {
+      "id": "work-2",
+      "title": "Visual Rhythm Edit #2",
+      "desc": "Sound-synchronized visual edits, beat matching, and seamless speed ramping.",
+      "url": "https://www.youtube.com/embed/Pc0n1SQzsi0",
+      "type": "shorts",
+      "mediaFormat": "youtube",
+      "tag": "Video Editing"
+    },
+    {
+      "id": "work-3",
+      "title": "Commercial Brand Motion Sequence",
+      "desc": "Full 16:9 motion design title package, atmospheric effects, and sound design.",
+      "url": "https://www.youtube.com/embed/vjitVW2mbmk",
+      "type": "cinematic",
+      "mediaFormat": "youtube",
+      "tag": "Motion Design"
+    },
+    {
+      "id": "work-4",
+      "title": "AI Powered Concept Film",
+      "desc": "Exploration of neural video generation, generative typography, and precision pacing.",
+      "url": "https://www.youtube.com/embed/4WeALTZICSw",
+      "type": "cinematic",
+      "mediaFormat": "youtube",
+      "tag": "AI Visuals"
+    },
+    {
+      "id": "work-5",
+      "title": "High-Retention Narrative Cut",
+      "desc": "Color graded visual narrative cut with multi-layered audio scoring and motion titles.",
+      "url": "https://www.youtube.com/embed/1UDdGg8cG2w",
+      "type": "cinematic",
+      "mediaFormat": "youtube",
+      "tag": "Video Editing"
+    },
+    {
+      "id": "work-6",
+      "title": "Futuristic Cybernetic Title Package",
+      "desc": "Complex keyframe choreography, particle simulations, and 3D visual hierarchy.",
+      "url": "https://www.youtube.com/embed/wS95p0QDxzI",
+      "type": "cinematic",
+      "mediaFormat": "youtube",
+      "tag": "After Effects"
+    }
+  ],
+  "contact": {
+    "email": "vh806464@gmail.com",
+    "phone": "8660641045",
+    "phoneFormatted": "+91 8660641045",
+    "whatsappUrl": "https://wa.me/918660641045",
+    "instagram": "sumne_shokige",
+    "instagramUrl": "https://instagram.com/sumne_shokige",
+    "copyright": "© 2024 Veeresh H. All Rights Reserved."
+  }
+}
